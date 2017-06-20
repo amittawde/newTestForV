@@ -6,48 +6,75 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static common.DriverManager.driver;
 
 /**
  * Created by amittawade on 20/06/2017.
  */
 public class HomePage {
 
-    @FindBy(how = How.CSS, using = "Latest news")
+    @FindBy(how = How.XPATH, using = "//*[@id='container']/div[2]/div[3]")
     private WebElement latestNews;
 
     @FindBy(how = How.XPATH, using = ".//*[@id='navigationMenuWrapper']/descendant::span[text()='About']")
     private WebElement aboutPage;
 
+    @FindBy(how = How.XPATH, using = ".//*[@id='navigationMenuWrapper']/descendant::span[text()='Services']")
+    private WebElement servicesPage;
+    
     @FindBy(how = How.XPATH, using = ".//*[@id='navigationMenuWrapper']/descendant::span[text()='Work']")
     private WebElement workPage;
 
-    @FindBy(how = How.XPATH, using = ".//*[@id='navigationMenuWrapper']/descendant::span[text()='Services']")
-    private WebElement servicesPage;
+    
 
-    @FindBy(how = How.LINK_TEXT, using = "contactcities li a")
-    private WebElement contactOfficesPage;
-
-    public void IsLatestNews()
-    {
-        Assert.assertEquals("latest news", latestNews.getText().toLowerCase().trim());
+    public HomePage() {
+        PageFactory.initElements(driver, this);
     }
 
 
-    public String getH1Title(String link) throws InterruptedException {
-        System.out.println("Link name is " + link);
-        String h1 ;
-        if (link.toLowerCase("about")) {
+    public boolean IsLatestNews()
+    {
+        WebElement myElement = (new WebDriverWait(driver, 6)).until(ExpectedConditions.visibilityOf(latestNews));
+
+        if (myElement.isDisplayed())
+            return true;
+
+        else
+            return false;
+
+    }
+
+
+    public void goToPage(String pageLinkName) {
+
+        if (pageLinkName.equals("ABOUT")) {
             aboutPage.click();
         }
-        if (link.toLowerCase( "work") ){
-            workPage.click();
-        }
-        if (link.toLowerCase("services")){
+
+        if (pageLinkName.equals("SERVICES")) {
             servicesPage.click();
         }
-        Thread.sleep(3000);
-        h1 = DriverManager.driver.findElement(By.tagName("h1")).getText();
-        return h1;
+
+        if (pageLinkName.equals("WORK")) {
+            workPage.click();
+        }
     }
 
+
+    public String getH1Text() throws InterruptedException {
+
+        String h1Text;
+        // System.out.println("Link name is " + link);
+
+        Thread.sleep(3000);
+        h1Text = driver.findElement(By.tagName("h1")).getText();
+        return h1Text;
+
+    }
 }
+
+

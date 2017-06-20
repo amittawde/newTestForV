@@ -14,18 +14,14 @@ public class DriverManager {
 
     public void initialiseDriver(){
 
-        //System.setProperty("webdriver.gecko.driver","src/test/java/common/geckodriver");
         System.setProperty("webdriver.chrome.driver","src/test/java/common/chromedriver");
-
-        //driver = new FirefoxDriver();
-
 
         driver = new ChromeDriver();
     }
 
     public void openBrowser() {
-        driver.get("http://www.bbc.co.uk");
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //driver.get("http://www.bbc.co.uk");
+        //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     public void closeBrowser() {

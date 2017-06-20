@@ -1,9 +1,13 @@
 package stepdefinitions;
 
+import cucumber.api.java.en.When;
 import cucumber.api.java8.En;
+import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
 import pageobjects.ContactPage;
 import pageobjects.HomePage;
+
+import java.util.concurrent.TimeUnit;
 
 import static common.DriverManager.driver;
 
@@ -12,46 +16,43 @@ import static common.DriverManager.driver;
  */
 public class TestSteps implements En{
 
-    HomePage homePage;
-    ContactPage contactPage;
+    HomePage homePage = new HomePage();
+    ContactPage contactPage = new ContactPage();
 
     public TestSteps() {
 
         Given("^I navigate to www\\.valtech\\.com$", () -> {
             driver.get("http://www.valtech.com");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         });
+
 
         Then("^Latest News section is displayed$", () -> {
-            homePage = PageFactory.initElements(driver, HomePage.class);
-            homePage.IsLatestNews();
-        });
-
-        When("^I select About$", () -> {
+            Assert.assertTrue("Latest news is displayed",homePage.IsLatestNews());
 
         });
 
-        Then("^verify that H1 tag displays About$", () -> {
 
+        When("^I select menu item (.*)$", (String pageLink) -> {
+            homePage.goToPage(pageLink);
         });
 
-        When("^I select Services$", () -> {
 
+        Then("^H1 tag displays correct item (.*)$", (String h1Text) ->  {
+
+            try {
+                Assert.assertEquals(homePage.getH1Text(), h1Text);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
 
-        Then("^verify that H(\\d+) tag displays Services$", (Integer arg1) -> {
-
-        });
-
-        When("^I select Work$", () -> {
-
-        });
-
-        Then("^verify that H(\\d+) tag displays Work$", (Integer arg1) -> {
-
-        });
 
         When("^I goto Contact page$", () -> {
-            contactPage = PageFactory.initElements(driver, ContactPage.class);
+            driver.get("https://www.valtech.com/about/contact-us/");
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         });
 
         Then("^I find the number of Valtech offices$", () -> {
