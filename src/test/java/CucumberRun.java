@@ -10,21 +10,8 @@ import org.junit.runner.RunWith;
  */
 
 @RunWith(Cucumber.class)
-@CucumberOptions(tags = "@test1")
+@CucumberOptions(tags = "@test")
 public class CucumberRun {
 
-    /*
-    @BeforeClass
-    public static void setup(){
 
-        new DriverManager().initialiseDriver();
-        new DriverManager().openBrowser();
-    }
-
-    @AfterClass
-    public static void teardown(){
-
-        new DriverManager().closeBrowser();
-    }
-    */
 }

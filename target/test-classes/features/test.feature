@@ -7,6 +7,7 @@ Feature: Valtech Test
     Then Latest News section is displayed
 
 
+  @test2
   Scenario Outline: Assert H1 tag on each page
     Given I navigate to www.valtech.com
     When I select menu item <menu item>
@@ -19,7 +20,8 @@ Feature: Valtech Test
     | WORK      | Work        |
 
 
-    Scenario: From the Contacts page output how many Valtech offices in total
+  @test3
+  Scenario: From the Contacts page output how many Valtech offices in total
       Given I navigate to www.valtech.com
       When I goto Contact page
-      Then I find the number of Valtech offices
+      Then I find 36 of Valtech offices

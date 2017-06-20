@@ -55,8 +55,12 @@ public class TestSteps implements En{
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         });
 
-        Then("^I find the number of Valtech offices$", () -> {
-            contactPage.numberOfOffices();
+        Then("^I find (.*) of Valtech offices$", (String offices) -> {
+            int numOffices = contactPage.numberOfOffices();
+
+            if(numOffices > 0) {
+                Assert.assertEquals("Total contact offices: ", numOffices, Integer.parseInt(offices));
+            }
 
         });
     }

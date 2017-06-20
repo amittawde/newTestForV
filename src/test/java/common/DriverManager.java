@@ -2,6 +2,7 @@ package common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +16,10 @@ public class DriverManager {
     public void initialiseDriver(){
 
         System.setProperty("webdriver.chrome.driver","src/test/java/common/chromedriver");
+        //System.setProperty("webdriver.gecko.driver","src/test/java/common/geckodriver");
 
         driver = new ChromeDriver();
+        //driver = new FirefoxDriver();
     }
 
     public void openBrowser() {

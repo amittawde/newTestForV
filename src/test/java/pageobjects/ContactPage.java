@@ -16,17 +16,19 @@ import static common.DriverManager.driver;
 public class ContactPage {
 
 
-    @FindBy(how = How.LINK_TEXT, using = "contactcities li a")
+    @FindBy(how = How.XPATH, using = "//*[@class='icons glyph'][@data-icon='earth-contact']")
     private WebElement contactPage;
 
     public ContactPage() {
         PageFactory.initElements(driver, this);
     }
 
-    public void numberOfOffices() {
+    public int numberOfOffices() {
 
-        List<WebElement> offices = driver.findElements(By.cssSelector("#container>section div ul  li"));
-        System.out.print("Number of offices:" + offices.size());
+        List<WebElement> offices = driver.findElements(By.xpath("//*[@class='contactcities']/li"));
+        return offices.size();
+
+
 
     }
 }
